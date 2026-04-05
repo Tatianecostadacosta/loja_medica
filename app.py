@@ -72,5 +72,6 @@ def pedidos():
     return render_template('pedidos.html', pedidos=dados_formatados)
 
 if __name__ == '__main__':
+    import os
     criar_banco()
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
