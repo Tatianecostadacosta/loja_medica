@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d5c63;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #0d5c63;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .itens {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-voltar {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 20px auto;
+            padding: 10px 20px;
+            background: #0d5c63;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .btn-voltar:hover {
+            background: #094a50;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📦 Pedidos Recebidos</h1>
+
+<a href="/" class="btn-voltar">← Voltar à Loja</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Itens</th>
+        <th>Total</th>
+    </tr>
+
+    {% for pedido in pedidos %}
+    <tr>
+        <td>{{ pedido[0] }}</td>
+        <td>{{ pedido[1] }}</td>
+
+        <td class="itens">
+            {{ pedido[2] | safe }}
+        </td>
+
+        <td><strong>R$ {{ pedido[3] }}</strong></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

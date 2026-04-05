@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Loja Médica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>🩺 Loja de Equipamentos Médicos</h1>
+    <a href="/pedidos" class="btn-pedidos">📦 Ver Pedidos</a>
+</header>
+
+<div class="produtos">
+
+    <div class="card">
+        <h3>Termômetro Digital</h3>
+        <p>R$ 50</p>
+        <button onclick="adicionar('Termômetro Digital', 50)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Aparelho de Pressão</h3>
+        <p>R$ 120</p>
+        <button onclick="adicionar('Aparelho de Pressão', 120)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Oxímetro</h3>
+        <p>R$ 80</p>
+        <button onclick="adicionar('Oxímetro', 80)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Estetoscópio</h3>
+        <p>R$ 90</p>
+        <button onclick="adicionar('Estetoscópio', 90)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Otoscópio</h3>
+        <p>R$ 150</p>
+        <button onclick="adicionar('Otoscópio', 150)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Glicosímetro</h3>
+        <p>R$ 70</p>
+        <button onclick="adicionar('Glicosímetro', 70)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Balança Digital</h3>
+        <p>R$ 200</p>
+        <button onclick="adicionar('Balança Digital', 200)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Termômetro Infravermelho</h3>
+        <p>R$ 110</p>
+        <button onclick="adicionar('Termômetro Infravermelho', 110)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Monitor Cardíaco</h3>
+        <p>R$ 350</p>
+        <button onclick="adicionar('Monitor Cardíaco', 350)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Nebulizador</h3>
+        <p>R$ 180</p>
+        <button onclick="adicionar('Nebulizador', 180)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Cadeira de Rodas</h3>
+        <p>R$ 600</p>
+        <button onclick="adicionar('Cadeira de Rodas', 600)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Muleta Regulável</h3>
+        <p>R$ 80</p>
+        <button onclick="adicionar('Muleta Regulável', 80)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Luvas Cirúrgicas (cx 100un)</h3>
+        <p>R$ 45</p>
+        <button onclick="adicionar('Luvas Cirúrgicas', 45)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Máscara N95 (cx 10un)</h3>
+        <p>R$ 55</p>
+        <button onclick="adicionar('Máscara N95', 55)">Comprar</button>
+    </div>
+
+    <div class="card">
+        <h3>Seringa 10ml (cx 100un)</h3>
+        <p>R$ 35</p>
+        <button onclick="adicionar('Seringa 10ml', 35)">Comprar</button>
+    </div>
+
+<div class="card">
+    <h3>Bandagem Elástica</h3>
+    <p>R$ 25</p>
+    <button onclick="adicionar('Bandagem Elástica', 25)">Comprar</button>
+</div>
+
+</div>
+
+<div class="carrinho">
+    <h2>Carrinho</h2>
+    <ul id="lista"></ul>
+    <p>Total: R$ <span id="total">0</span></p>
+    <input type="text" id="nomeCliente" placeholder="Seu nome">
+
+    <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+    <button class="btn-limpar" onclick="abrirModal()">Limpar Carrinho</button>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-box">
+        <p><strong>Deseja limpar o carrinho?</strong></p>
+
+        <div class="botoes-modal">
+            <button class="btn-sim" onclick="confirmarLimpar()">Sim</button>
+            <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalErro" class="modal">
+    <div class="modal-box">
+        <p><strong>Por favor, informe seu nome antes de finalizar!</strong></p>
+
+        <div class="botoes-modal">
+            <button class="btn-cancelar" onclick="fecharModalErro()">Ok</button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
