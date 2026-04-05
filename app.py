@@ -1,22 +1,26 @@
 from flask import Flask, render_template, request, jsonify
-import sqlite3
+import psycopg2
 import json
+import os
 
 app = Flask(__name__)
 
+DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://banco_loja_f0cr_user:picZKjOySbFb4nM62OvqC2EBPedOTFvY@dpg-d79f9tdactks73d65dl0-a/banco_loja_f0cr')
+
+def get_conn():
+    return psycopg2.connect(DATABASE_URL)
+
 def criar_banco():
-    conn = sqlite3.connect('banco.db')
+    conn = get_conn()
     cursor = conn.cursor()
-
     cursor.execute('''
-    CREATE TABLE IF NOT EXISTS pedidos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        cliente TEXT,
-        itens TEXT,
-        total REAL
-    )
+        CREATE TABLE IF NOT EXISTS pedidos (
+            id SERIAL PRIMARY KEY,
+            cliente TEXT,
+            itens TEXT,
+            total REAL
+        )
     ''')
-
     conn.commit()
     conn.close()
 
@@ -27,32 +31,25 @@ def home():
 @app.route('/salvar', methods=['POST'])
 def salvar():
     dados = request.json
-
-    conn = sqlite3.connect('banco.db')
+    conn = get_conn()
     cursor = conn.cursor()
-
     cursor.execute('''
-    INSERT INTO pedidos (cliente, itens, total)
-    VALUES (?, ?, ?)
+        INSERT INTO pedidos (cliente, itens, total)
+        VALUES (%s, %s, %s)
     ''', (dados['cliente'], json.dumps(dados['itens']), dados['total']))
-
     conn.commit()
     conn.close()
-
     return jsonify({"status": "ok"})
 
 @app.route('/pedidos')
 def pedidos():
-    conn = sqlite3.connect('banco.db')
+    conn = get_conn()
     cursor = conn.cursor()
-
     cursor.execute("SELECT * FROM pedidos")
     dados = cursor.fetchall()
-
     conn.close()
 
     dados_formatados = []
-
     for pedido in dados:
         try:
             itens_dict = json.loads(pedido[2])
@@ -62,12 +59,7 @@ def pedidos():
         except:
             itens_formatados = pedido[2]
 
-        dados_formatados.append((
-            pedido[0],
-            pedido[1],
-            itens_formatados,
-            pedido[3]
-        ))
+        dados_formatados.append((pedido[0], pedido[1], itens_formatados, pedido[3]))
 
     return render_template('pedidos.html', pedidos=dados_formatados)
 
