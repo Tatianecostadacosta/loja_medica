@@ -63,7 +63,7 @@ function finalizarCompra() {
 
     window.open(url, "_blank");
 
-    fetch("http://127.0.0.1:5000/salvar", {
+    fetch("/salvar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
